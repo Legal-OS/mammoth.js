@@ -19,6 +19,7 @@
   "dependencies": {
     "argparse": "~1.0.3",
     "bluebird": "~3.4.0",
+    "clone": "^2.1.2",
     "dingbat-to-unicode": "^1.0.1",
     "jszip": "^3.7.1",
     "lop": "^0.4.1",
