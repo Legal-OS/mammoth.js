@@ -452,7 +452,7 @@ test('docx table is converted to table in HTML', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>" +
+        var expectedHtml = '<table style="border-collapse: collapse;">' +
             "<tr><td><p>Top left</p></td><td><p>Top right</p></td></tr>" +
             "<tr><td><p>Bottom left</p></td><td><p>Bottom right</p></td></tr>" +
             "</table>";
@@ -486,7 +486,7 @@ test('header rows are wrapped in thead', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>" +
+        var expectedHtml = '<table style="border-collapse: collapse;">' +
             "<thead><tr><th></th></tr><tr><th></th></tr></thead>" +
             "<tbody><tr><td></td></tr></tbody>" +
             "</table>";
@@ -501,7 +501,7 @@ test('tbody is omitted if all rows are headers', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>" +
+        var expectedHtml = '<table style="border-collapse: collapse;">' +
             "<thead><tr><th></th></tr></thead>" +
             "</table>";
         assert.equal(result.value, expectedHtml);
@@ -515,7 +515,7 @@ test('unexpected table children do not cause error', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>\t</table>";
+        var expectedHtml = '<table style="border-collapse: collapse;">\t</table>';
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -530,7 +530,7 @@ test('empty cells are preserved in table', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>" +
+        var expectedHtml = '<table style="border-collapse: collapse;">' +
             "<tr><td></td><td><p>Top right</p></td></tr>" +
             "</table>";
         assert.equal(result.value, expectedHtml);
@@ -547,7 +547,7 @@ test('empty rows are preserved in table', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>" +
+        var expectedHtml = '<table style="border-collapse: collapse;">' +
             "<tr><td><p>Row 1</p></td></tr><tr></tr>" +
             "</table>";
         assert.equal(result.value, expectedHtml);
@@ -564,7 +564,7 @@ test('table cells are written with colSpan if not equal to one', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>" +
+        var expectedHtml = '<table style="border-collapse: collapse;">' +
             "<tr><td colspan=\"2\"><p>Top left</p></td><td><p>Top right</p></td></tr>" +
             "</table>";
         assert.equal(result.value, expectedHtml);
@@ -580,7 +580,7 @@ test('table cells are written with rowSpan if not equal to one', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(table).then(function(result) {
-        var expectedHtml = "<table>" +
+        var expectedHtml = '<table style="border-collapse: collapse;">' +
             "<tr><td rowspan=\"2\"></td></tr>" +
             "</table>";
         assert.equal(result.value, expectedHtml);
@@ -595,11 +595,11 @@ test('line break is converted to <br>', function() {
     });
 });
 
-test('breaks that are not line breaks are ignored', function() {
+test('page break is converted to <br class="PageBreak" />', function() {
     var converter = new DocumentConverter();
 
     return converter.convertToHtml(documents.pageBreak).then(function(result) {
-        assert.equal(result.value, "");
+        assert.equal(result.value, '<br class="PageBreak" />');
     });
 });
 
