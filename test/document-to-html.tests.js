@@ -453,9 +453,14 @@ test('docx table is converted to table in HTML', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-            "<tr><td><p>Top left</p></td><td><p>Top right</p></td></tr>" +
-            "<tr><td><p>Bottom left</p></td><td><p>Bottom right</p></td></tr>" +
-            "</table>";
+        '<tr>' +
+        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top left</p></td>' +
+        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top right</p></td>' +
+        '</tr><tr>' +
+        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Bottom left</p></td>' +
+        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Bottom right</p></td>' +
+        '</tr></table>';
+
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -487,9 +492,10 @@ test('header rows are wrapped in thead', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-            "<thead><tr><th></th></tr><tr><th></th></tr></thead>" +
-            "<tbody><tr><td></td></tr></tbody>" +
-            "</table>";
+        '<thead><tr><th style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></th></tr><tr><th style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></th></tr></thead>' +
+        '<tbody><tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></td></tr></tbody>' +
+        '</table>';
+        
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -502,8 +508,9 @@ test('tbody is omitted if all rows are headers', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-            "<thead><tr><th></th></tr></thead>" +
-            "</table>";
+        '<thead><tr><th style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></th></tr></thead>' +
+        '</table>';
+
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -531,8 +538,8 @@ test('empty cells are preserved in table', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-            "<tr><td></td><td><p>Top right</p></td></tr>" +
-            "</table>";
+        '<tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></td><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top right</p></td></tr>' +
+        '</table>';
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -548,8 +555,8 @@ test('empty rows are preserved in table', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-            "<tr><td><p>Row 1</p></td></tr><tr></tr>" +
-            "</table>";
+        '<tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Row 1</p></td></tr><tr></tr>' +
+        '</table>';
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -565,8 +572,8 @@ test('table cells are written with colSpan if not equal to one', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-            "<tr><td colspan=\"2\"><p>Top left</p></td><td><p>Top right</p></td></tr>" +
-            "</table>";
+        '<tr><td colspan="2" style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top left</p></td><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top right</p></td></tr>' +
+        '</table>';
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -581,8 +588,8 @@ test('table cells are written with rowSpan if not equal to one', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-            "<tr><td rowspan=\"2\"></td></tr>" +
-            "</table>";
+        '<tr><td rowspan="2" style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></td></tr>' +
+        '</table>';
         assert.equal(result.value, expectedHtml);
     });
 });

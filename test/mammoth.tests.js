@@ -259,12 +259,12 @@ test('simple list is converted to list elements', function() {
 test('word tables are converted to html tables', function() {
     var docxPath = path.join(__dirname, "test-data/tables.docx");
     return mammoth.convertToHtml({path: docxPath}).then(function(result) {
-        var expectedHtml = "<p>Above</p>" +
-            '<table style="border-collapse: collapse;">' +
-            "<tr><td><p>Top left</p></td><td><p>Top right</p></td></tr>" +
-            "<tr><td><p>Bottom left</p></td><td><p>Bottom right</p></td></tr>" +
-            "</table>" +
-            "<p>Below</p>";
+        var expectedHtml = '<p>Above</p>' +
+        '<table style="border-collapse: collapse;">' +
+        '<tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top left</p></td><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top right</p></td></tr>' +
+        '<tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Bottom left</p></td><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Bottom right</p></td></tr>' +
+        '</table>' +
+        '<p>Below</p>';
         assert.equal(result.value, expectedHtml);
         assert.deepEqual(result.messages, []);
     });
