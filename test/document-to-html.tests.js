@@ -441,7 +441,15 @@ test('docx tab is converted to tab in HTML', function() {
 test('docx table is converted to table in HTML', function() {
     var table = new documents.Table([
         new documents.TableRow([
-            new documents.TableCell([paragraphOfText("Top left")]),
+            new documents.TableCell([paragraphOfText("Top left")],
+                {
+                    borders: {
+                        left: {lineType: "solid", size: 1, space: 1, color: "000001"},
+                        right: {lineType: "nil", size: 2.5, space: 2, color: "000002"},
+                        top: {lineType: "dashed", size: 3, space: 3, color: "000003"},
+                        bottom: {lineType: "unsupported", size: 4, space: 4, color: "000004"}
+                    }
+                }),
             new documents.TableCell([paragraphOfText("Top right")])
         ]),
         new documents.TableRow([
@@ -453,13 +461,13 @@ test('docx table is converted to table in HTML', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-        '<tr>' +
-        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top left</p></td>' +
-        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top right</p></td>' +
-        '</tr><tr>' +
-        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Bottom left</p></td>' +
-        '<td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Bottom right</p></td>' +
-        '</tr></table>';
+            '<tr>' +
+            '<td style="border-top-style:dashed; border-top-width:0.375pt; padding-top:0.15px; border-top-color:#000003; border-bottom-style:solid; border-bottom-width:0.5pt; padding-bottom:0.2px; border-bottom-color:#000004; border-left-style:solid; border-left-width:0.125pt; padding-left:0.05px; border-left-color:#000001; border-right-style:none; border-right-width:0.25pt; padding-right:0.1px; border-right-color:#000002; "><p>Top left</p></td>' +
+            '<td><p>Top right</p></td>' +
+            '</tr><tr>' +
+            '<td><p>Bottom left</p></td>' +
+            '<td><p>Bottom right</p></td>' +
+            '</tr></table>';
 
         assert.equal(result.value, expectedHtml);
     });
@@ -492,10 +500,10 @@ test('header rows are wrapped in thead', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-        '<thead><tr><th style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></th></tr><tr><th style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></th></tr></thead>' +
-        '<tbody><tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></td></tr></tbody>' +
-        '</table>';
-        
+            "<thead><tr><th></th></tr><tr><th></th></tr></thead>" +
+            "<tbody><tr><td></td></tr></tbody>" +
+            "</table>";
+
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -508,8 +516,8 @@ test('tbody is omitted if all rows are headers', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-        '<thead><tr><th style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></th></tr></thead>' +
-        '</table>';
+            "<thead><tr><th></th></tr></thead>" +
+            "</table>";
 
         assert.equal(result.value, expectedHtml);
     });
@@ -538,8 +546,8 @@ test('empty cells are preserved in table', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-        '<tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></td><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top right</p></td></tr>' +
-        '</table>';
+            "<tr><td></td><td><p>Top right</p></td></tr>" +
+            "</table>";
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -555,8 +563,8 @@ test('empty rows are preserved in table', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-        '<tr><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Row 1</p></td></tr><tr></tr>' +
-        '</table>';
+            "<tr><td><p>Row 1</p></td></tr><tr></tr>" +
+            "</table>";
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -572,8 +580,8 @@ test('table cells are written with colSpan if not equal to one', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-        '<tr><td colspan="2" style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top left</p></td><td style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "><p>Top right</p></td></tr>' +
-        '</table>';
+            "<tr><td colspan=\"2\"><p>Top left</p></td><td><p>Top right</p></td></tr>" +
+            "</table>";
         assert.equal(result.value, expectedHtml);
     });
 });
@@ -588,8 +596,8 @@ test('table cells are written with rowSpan if not equal to one', function() {
 
     return converter.convertToHtml(table).then(function(result) {
         var expectedHtml = '<table style="border-collapse: collapse;">' +
-        '<tr><td rowspan="2" style="border-top-style:solid; border-top-width:1pt; padding-top:1px; border-top-color:#000000; border-bottom-style:solid; border-bottom-width:1pt; padding-bottom:1px; border-bottom-color:#000000; border-left-style:solid; border-left-width:1pt; padding-left:1px; border-left-color:#000000; border-right-style:solid; border-right-width:1pt; padding-right:1px; border-right-color:#000000; "></td></tr>' +
-        '</table>';
+            "<tr><td rowspan=\"2\"></td></tr>" +
+            "</table>";
         assert.equal(result.value, expectedHtml);
     });
 });
