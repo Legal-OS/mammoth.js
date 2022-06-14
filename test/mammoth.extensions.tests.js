@@ -50,8 +50,8 @@ test('formatted word tables are converted to html tables', function() {
     return mammoth.convertToHtml({path: docxPath}).then(function(result) {
         var expectedHtml = '<p>Above</p>' +
             '<table style="border-collapse: collapse;">' +
-            '<tr><td style="border-top-style:none; border-bottom-style:solid; border-bottom-width:6pt; border-bottom-color:#FFC000; border-left-style:dotted; border-left-width:3pt; border-left-color:#C0504D; border-right-style:double; border-right-width:0.5pt; border-right-color:#000000; "><p>Top left</p></td><td style="border-bottom-style:solid; border-bottom-width:0.5pt; border-left-style:double; border-left-width:0.5pt; border-left-color:#000000; "><p>Top right</p></td></tr>' +
-            '<tr><td style="border-top-style:solid; border-top-width:6pt; border-top-color:#FFC000; "><p>Bottom left</p></td><td style="border-bottom-style:none; border-right-style:solid; border-right-width:6pt; border-right-color:#C0504D; "><p>Bottom right</p></td></tr>' +
+            '<tr><td style="border-top-style:none; border-bottom-style:solid; border-bottom-width:6pt; border-bottom-color:#FFC000; border-left-style:dotted; border-left-width:3pt; border-left-color:#C0504D; border-right-style:double; border-right-width:0.5pt; border-right-color:#000000; width: 231.05pt;"><p>Top left</p></td><td style="border-bottom-style:solid; border-bottom-width:0.5pt; border-left-style:double; border-left-width:0.5pt; border-left-color:#000000; width: 231.05pt;"><p>Top right</p></td></tr>' +
+            '<tr><td style="border-top-style:solid; border-top-width:6pt; border-top-color:#FFC000; width: 231.05pt;"><p>Bottom left</p></td><td style="border-bottom-style:none; border-right-style:solid; border-right-width:6pt; border-right-color:#C0504D; width: 231.05pt;"><p>Bottom right</p></td></tr>' +
             '</table>' +
             '<p>Below</p>';
         assert.equal(result.value, expectedHtml);

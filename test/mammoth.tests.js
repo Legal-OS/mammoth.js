@@ -261,8 +261,8 @@ test('word tables are converted to html tables', function() {
     return mammoth.convertToHtml({path: docxPath}).then(function(result) {
         var expectedHtml = "<p>Above</p>" +
             '<table style="border-collapse: collapse;">' +
-            "<tr><td><p>Top left</p></td><td><p>Top right</p></td></tr>" +
-            "<tr><td><p>Bottom left</p></td><td><p>Bottom right</p></td></tr>" +
+            '<tr><td style="width: 231.05pt;"><p>Top left</p></td><td style="width: 231.05pt;"><p>Top right</p></td></tr>' +
+            '<tr><td style="width: 231.05pt;"><p>Bottom left</p></td><td style="width: 231.05pt;"><p>Bottom right</p></td></tr>' +
             "</table>" +
             "<p>Below</p>";
         assert.equal(result.value, expectedHtml);
