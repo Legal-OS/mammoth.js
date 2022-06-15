@@ -58,3 +58,22 @@ test('formatted word tables are converted to html tables', function() {
         assert.deepEqual(result.messages, []);
     });
 });
+
+test('formatted word 2x2 table with absolute width and fractional columns gets converted to html', function() {
+    var docxPath = path.join(__dirname, "test-data/tables-extensions-widths-30-70.docx");
+    return mammoth.convertToHtml({path: docxPath}).then(function(result) {
+        var expectedHtml = '<table style="border-collapse: collapse;width: 425.25pt;"><tr><td style="width: 30%;"></td><td style="width: 70%;"></td></tr><tr><td style="width: 30%;"></td><td style="width: 70%;"></td></tr></table>';
+        assert.equal(result.value, expectedHtml);
+        assert.deepEqual(result.messages, []);
+    });
+});
+
+
+test('formatted word 2x3 table with absolute width and fractional columns gets converted to html', function() {
+    var docxPath = path.join(__dirname, "test-data/tables-extensions-widths-20-20-60.docx");
+    return mammoth.convertToHtml({path: docxPath}).then(function(result) {
+        var expectedHtml = '<table style="border-collapse: collapse;width: 425.25pt;"><tr><td style="width: 20%;"></td><td style="width: 20%;"></td><td style="width: 60%;"></td></tr><tr><td style="width: 20%;"></td><td style="width: 20%;"></td><td style="width: 60%;"></td></tr></table>';
+        assert.equal(result.value, expectedHtml);
+        assert.deepEqual(result.messages, []);
+    });
+});
